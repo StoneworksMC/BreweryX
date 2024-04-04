@@ -33,9 +33,9 @@ public class PlayerListener implements Listener {
 
 		Player player = event.getPlayer();
 		Material type = clickedBlock.getType();
-
-		// -- Clicking an Hopper --
-		if (type == Material.HOPPER) {
+		// STONEWORKS CUSTOM SHENANIGANS - NOTE FROM MOYYE
+		// -- Clicking an Composter --
+		if (type == Material.COMPOSTER) {
 			if (BConfig.brewHopperDump && event.getPlayer().isSneaking()) {
 				if (!BreweryPlugin.use1_9 || event.getHand() == EquipmentSlot.HAND) {
 					ItemStack item = event.getItem();

@@ -1,7 +1,6 @@
 package com.dre.brewery.filedata;
 
 import com.dre.brewery.*;
-import com.dre.brewery.BreweryPlugin;
 import com.dre.brewery.api.events.ConfigLoadEvent;
 import com.dre.brewery.integration.barrel.BlocklockerBarrel;
 import com.dre.brewery.integration.barrel.WGBarrel;
@@ -25,6 +24,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
+// STONEWORKS CUSTOM SHENANIGANS - NOTE FROM MOYYE
+import com.dre.brewery.utility.NamedRanges;
 
 import java.io.File;
 import java.io.IOException;
@@ -38,7 +39,7 @@ import java.util.stream.Collectors;
 
 public class BConfig {
 
-	public static final String configVersion = "3.1";
+	public static final String configVersion = "3.1.8-SW";
 	public static boolean updateCheck;
 	public static CommandSender reloader;
 
@@ -90,6 +91,8 @@ public class BConfig {
 	public static boolean alwaysShowAlc; // Always show alc%
 	public static boolean showBrewer;
 	public static boolean brewHopperDump; // Allow Dumping of Brew liquid into Hoppers
+	// STONEWORKS CUSTOM SHENANIGANS - NOTE FROM MOYYE
+	public static Map<String, NamedRanges> namedRanges = new HashMap<>();
 
 	//Features
 	public static boolean craftSealingTable; // Allow Crafting of Sealing Table
@@ -324,6 +327,11 @@ public class BConfig {
 			}
 			BCauldronRecipe.numConfigRecipes = configRecipes.size();
 		}
+
+		// STONEWORKS CUSTOM SHENANIGANS - NOTE FROM MOYYE
+		// Load age obfuscation ranges
+		configSection = config.getConfigurationSection("ageObfuscation");
+		namedRanges.put("age", NamedRanges.fromConfigSection(configSection));
 
 		// Recalculating Cauldron-Accepted Items for non-config recipes
 		for (BRecipe recipe : BRecipe.getAddedRecipes()) {

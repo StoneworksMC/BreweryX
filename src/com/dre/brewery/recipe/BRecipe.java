@@ -615,6 +615,7 @@ public class BRecipe {
 	/**
 	 * Get a quality filtered list of supported attributes
 	 */
+	// STONEWORKS CUSTOM SHENANIGANS - NOTE FROM MOYYE
 	@Nullable
 	public List<String> getStringsForQuality(int quality, List<Tuple<Integer, String>> source) {
 		if (source == null) return null;
@@ -623,8 +624,10 @@ public class BRecipe {
 			plus = 1;
 		} else if (quality <= 7) {
 			plus = 2;
-		} else {
+		} else if (quality <= 9) {
 			plus = 3;
+		} else {
+			plus = 4;
 		}
 		List<String> list = new ArrayList<>(source.size());
 		for (Tuple<Integer, String> line : source) {

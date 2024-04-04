@@ -71,14 +71,26 @@ public class LegacyUtil {
 				}
 			}
 		}
+
+		// STONEWORKS CUSTOM SHENANIGANS - NOTE FROM MOYYE
+		planks.add(get("QUARTZ_BLOCK"));
+        planks.add(get("GILDED_BLACKSTONE"));
+        planks.add(get("PRISMARINE"));
+        planks.add(get("CRYING_OBSIDIAN"));
+        planks.add(get("RED_NETHER_BRICKS"));
+        planks.add(get("BRICKS"));
+        planks.add(get("WAXED_COPPER_BLOCK"));
+        planks.add(get("SCULK"));
+        planks.add(get("RED_MUSHROOM_BLOCK"));      
+	
 		unknownWoodTypes.sort(null);
 		PLANKS = planks;
 		UNKNOWN_WOOD = unknownWoodTypes;
-		TOTAL_WOOD_TYPES = allWoodTypes.size();
+		TOTAL_WOOD_TYPES = planks.size();
 
 		if (!unknownWoodTypes.isEmpty()) {
 			BreweryPlugin.getInstance().log("New wood types detected. Assigning recipe numbers:");
-			int lastKnownNumber = 12;
+			int lastKnownNumber = 21;
 			for (int i = 0; i < unknownWoodTypes.size(); i++) {
 				BreweryPlugin.getInstance().log("  " + unknownWoodTypes.get(i) + ": " + (i + lastKnownNumber));
 			}
@@ -105,6 +117,18 @@ public class LegacyUtil {
 				}
 			}
 		}
+
+		// STONEWORKS CUSTOM SHENANIGANS - NOTE FROM MOYYE
+		woodStairs.add(get("QUARTZ_STAIRS"));
+		woodStairs.add(get("BLACKSTONE_STAIRS"));
+		woodStairs.add(get("PRISMARINE_BRICK_STAIRS"));
+		woodStairs.add(get("POLISHED_BLACKSTONE_STAIRS"));
+		woodStairs.add(get("RED_NETHER_BRICK_STAIRS"));
+		woodStairs.add(get("BRICK_STAIRS"));
+		woodStairs.add(get("WAXED_CUT_COPPER_STAIRS"));
+		woodStairs.add(get("DEEPSLATE_TILE_STAIRS"));
+		woodStairs.add(get("SMOOTH_QUARTZ_STAIRS"));
+
 		WOOD_STAIRS = woodStairs;
 
 		// Special case for Bamboo mosaic, which simply counts as bamboo in recipes
@@ -119,6 +143,10 @@ public class LegacyUtil {
 		Set<Material> fences = new HashSet<>();
 		for (Material m : Material.values()) {
 			if (m.name().endsWith("FENCE")) {
+				fences.add(m);
+			}
+		// STONEWORKS CUSTOM SHENANIGANS - NOTE FROM MOYYE
+			if (m.name().endsWith("WALL")) {
 				fences.add(m);
 			}
 		}
@@ -216,9 +244,12 @@ public class LegacyUtil {
 	}
 
 	public static byte getWoodType(Block wood) throws NoSuchFieldError, NoClassDefFoundError {
+		// STONEWORKS CUSTOM SHENANIGANS - NOTE FROM MOYYE
 
 		if (BreweryPlugin.use1_13 || isWoodStairs(wood.getType())) {
 			String material = wood.getType().name();
+			//Uncomment line below to see barrel types in console when they are made. Helps with Debugging barrels that arent working
+			//BreweryPlugin.getInstance().errorLog(material); 
 			if (material.startsWith("OAK")) {
 				return 2;
 			} else if (material.startsWith("SPRUCE")) {
@@ -235,16 +266,46 @@ public class LegacyUtil {
 				return 7;
 			} else if (material.startsWith("WARPED")) {
 				return 8;
-			} else if (material.startsWith("MANGROVE")) {
+			} else if (material.startsWith("QUARTZ")) {
 				return 9;
-			} else if (material.startsWith("CHERRY")) {
+			} else if (material.startsWith("GILDED")) {
 				return 10;
-			} else if (material.startsWith("BAMBOO")) {
+			} else if (material.startsWith("BLACKSTONE_STAIRS")) {
+				return 10;
+			} else if (material.startsWith("PRISMARINE")) {
 				return 11;
+			} else if (material.startsWith("PRISMARINE_BRICK_STAIRS")) {
+				return 11;
+			} else if (material.startsWith("CRYING")) {
+				return 12;
+			} else if (material.startsWith("POLISHED_BLACKSTONE_STAIRS")) {
+				return 12;
+			} else if (material.startsWith("RED_NETHER")) {
+				return 13;
+			} else if (material.startsWith("BRICK")) {
+				return 14;
+			} else if (material.startsWith("WAXED_COPPER_BLOCK")) {
+				return 15;
+			} else if (material.startsWith("WAXED_CUT_COPPER_STAIRS")) {
+				return 15;
+			} else if (material.startsWith("SCULK")) {
+				return 16;
+			} else if (material.startsWith("DEEPSLATE_TILE_STAIRS")) {
+				return 16;
+			} else if (material.startsWith("RED_MUSHROOM_BLOCK")) {
+				return 17;
+			} else if (material.startsWith("SMOOTH_QUARTZ_STAIRS")) {
+				return 17;
+			} else if (material.startsWith("MANGROVE")) {
+				return 18;
+			} else if (material.startsWith("CHERRY")) {
+				return 19;
+			} else if (material.startsWith("BAMBOO")) {
+				return 20;
 			} else if (!UNKNOWN_WOOD.isEmpty()) {
 				for (int i = 0; i < UNKNOWN_WOOD.size(); i++) {
 					if (material.startsWith(UNKNOWN_WOOD.get(i))) {
-						return (byte) (i + 12);
+						return (byte) (i + 21);
 					}
 				}
 				return 0;

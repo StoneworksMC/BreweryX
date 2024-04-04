@@ -3,11 +3,14 @@ package com.dre.brewery.utility;
 import com.dre.brewery.BreweryPlugin;
 
 public class StringParser {
-
+	// STONEWORKS CUSTOM SHENANIGANS - NOTE FROM MOYYE
 	public static Tuple<Integer, String> parseQuality(String line, ParseType type) {
 		line = BreweryPlugin.getInstance().color(line);
 		int plus = 0;
-		if (line.startsWith("+++")) {
+		if (line.startsWith("++++")) {
+			plus = 4;
+			line = line.substring(4);
+		} else if (line.startsWith("+++")) {
 			plus = 3;
 			line = line.substring(3);
 		} else if (line.startsWith("++")) {

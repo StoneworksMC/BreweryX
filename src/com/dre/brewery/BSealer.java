@@ -28,14 +28,15 @@ public class BSealer implements InventoryHolder {
 
 	private final Inventory inventory;
 	private final Player player;
-	private final short[] slotTime = new short[9];
+	private final short[] slotTime = new short[27];
 	private ItemStack[] contents = null;
 	private MyScheduledTask task;
 
+	// STONEWORKS CUSTOM SHENANIGANS - NOTE FROM MOYYE
 	public BSealer(Player player) {
 		this.player = player;
 		if (inventoryHolderWorking) {
-			Inventory inv = BreweryPlugin.getInstance().getServer().createInventory(this, InventoryType.DISPENSER, BreweryPlugin.getInstance().languageReader.get("Etc_SealingTable"));
+			Inventory inv = BreweryPlugin.getInstance().getServer().createInventory(this, InventoryType.CHEST, BreweryPlugin.getInstance().languageReader.get("Etc_SealingTable"));
 			// Inventory Holder (for DISPENSER, ...) is only passed in Paper, not in Spigot. Doing inventory.getHolder() will return null in spigot :/
 			if (inv.getHolder() == this) {
 				inventory = inv;
@@ -44,7 +45,7 @@ public class BSealer implements InventoryHolder {
 				inventoryHolderWorking = false;
 			}
 		}
-		inventory = BreweryPlugin.getInstance().getServer().createInventory(this, 9, BreweryPlugin.getInstance().languageReader.get("Etc_SealingTable"));
+		inventory = BreweryPlugin.getInstance().getServer().createInventory(this, 27, BreweryPlugin.getInstance().languageReader.get("Etc_SealingTable"));
 	}
 
 	@Override

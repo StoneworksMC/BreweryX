@@ -187,13 +187,18 @@ public class BrewLore {
 			prefix = "§7";
 		}
 		if (!brew.isUnlabeled()) {
-			if (age >= 1 && age < 2) {
-				prefix = prefix + BreweryPlugin.getInstance().languageReader.get("Brew_OneYear") + " ";
-			} else if (age < 201) {
-				prefix = prefix + (int) Math.floor(age) + " " + BreweryPlugin.getInstance().languageReader.get("Brew_Years") + " ";
+			int flooredAge = (int)Math.floor(age);
+			String obfuscate = BConfig.namedRanges.get("age").getName(flooredAge);
+			if (obfuscate == null || obfuscate.isEmpty()) {
+				if (flooredAge == 1) {
+					prefix += BreweryPlugin.getInstance().languageReader.get("Brew_OneYear");
+				} else {
+					prefix += flooredAge + " " + BreweryPlugin.getInstance().languageReader.get("Brew_Years");
+				}
 			} else {
-				prefix = prefix + BreweryPlugin.getInstance().languageReader.get("Brew_HundredsOfYears") + " ";
+				prefix += obfuscate;
 			}
+			prefix += " ";
 		}
 		addOrReplaceLore(Type.AGE, prefix, BreweryPlugin.getInstance().languageReader.get("Brew_BarrelRiped"), suffix);
 	}

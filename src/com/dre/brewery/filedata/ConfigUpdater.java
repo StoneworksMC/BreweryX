@@ -260,6 +260,13 @@ public class ConfigUpdater {
 			updateVersion(BConfig.configVersion);
 			fromVersion = "3.1";
 		}
+		
+		// STONEWORKS CUSTOM SHENANIGANS - NOTE FROM MOYYE
+		if (fromVersion.equals("3.1")) {
+			update31enSW();
+			updateVersion(BConfig.configVersion);
+			fromVersion = "3.1.8-SW";
+		}
 
 		if (BreweryPlugin.use1_13 && oldMat) {
 			updateMaterials(true);
@@ -2025,6 +2032,20 @@ public class ConfigUpdater {
 			"brewHopperDump: true");
 	}
 
+// STONEWORKS CUSTOM SHENANIGANS - NOTE FROM MOYYE
+	private void update31enSW() {
+		addLinesAt(new String[]{"minimalParticles:", "loadDataAsync:", "openLargeBarrelEverywhere:", "colorInBrewer:", "brewHopperDump:"}, 1,
+		"",
+		"# -- Age Obfuscation --",
+		"# Define ranges for age that become obfuscated instead of explicitly saying the exact age",
+		"# Blank obfuscation reveals the exact age",
+		"ageObfuscation:",
+		" 0: ''",
+		" 100: 'Century'",
+		" 200: 'Hundreds of Years'",
+		" 500: 'Over 500 Years'",
+		" 1000: 'Over a 1000 Years'");	
+	}
 
 
 	private void convertCookedSection(FileConfiguration yml, int toLine) {

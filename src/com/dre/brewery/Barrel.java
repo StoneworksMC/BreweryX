@@ -42,12 +42,13 @@ public class Barrel implements InventoryHolder {
 	private Inventory inventory;
 	private float time;
 
+	// STONEWORKS CUSTOM SHENANIGANS - NOTE FROM MOYYE
 	public Barrel(Block spigot, byte signoffset) {
 		this.spigot = spigot;
 		if (isLarge()) {
-			inventory = BreweryPlugin.getInstance().getServer().createInventory(this, 27, BreweryPlugin.getInstance().languageReader.get("Etc_Barrel"));
+			inventory = BreweryPlugin.getInstance().getServer().createInventory(this, 54, BreweryPlugin.getInstance().languageReader.get("Etc_Barrel"));
 		} else {
-			inventory = BreweryPlugin.getInstance().getServer().createInventory(this, 9, BreweryPlugin.getInstance().languageReader.get("Etc_Barrel"));
+			inventory = BreweryPlugin.getInstance().getServer().createInventory(this, 18, BreweryPlugin.getInstance().languageReader.get("Etc_Barrel"));
 		}
 		body = new BarrelBody(this, signoffset);
 	}
@@ -63,12 +64,13 @@ public class Barrel implements InventoryHolder {
 	 * Load from File
 	 * <p>If async: true, The Barrel Bounds will not be recreated when missing/corrupt, getBody().getBounds() will be null if it needs recreating
 	 */
+	// STONEWORKS CUSTOM SHENANIGANS - NOTE FROM MOYYE
 	public Barrel(Block spigot, byte sign, BoundingBox bounds, Map<String, Object> items, float time, boolean async) {
 		this.spigot = spigot;
 		if (isLarge()) {
-			this.inventory = BreweryPlugin.getInstance().getServer().createInventory(this, 27, BreweryPlugin.getInstance().languageReader.get("Etc_Barrel"));
+			this.inventory = BreweryPlugin.getInstance().getServer().createInventory(this, 54, BreweryPlugin.getInstance().languageReader.get("Etc_Barrel"));
 		} else {
-			this.inventory = BreweryPlugin.getInstance().getServer().createInventory(this, 9, BreweryPlugin.getInstance().languageReader.get("Etc_Barrel"));
+			this.inventory = BreweryPlugin.getInstance().getServer().createInventory(this, 18, BreweryPlugin.getInstance().languageReader.get("Etc_Barrel"));
 		}
 		if (items != null) {
 			for (String slot : items.keySet()) {
